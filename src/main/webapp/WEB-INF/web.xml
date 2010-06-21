@@ -4,4 +4,19 @@
 	version="2.4">
 	<display-name>UberGloss Terminology Server</display-name>
 
+	<filter>
+		<filter-name>guiceFilter</filter-name>
+		<filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>guiceFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<listener>
+		<listener-class>com.unsercorp.ubergloss.server.UberGlossGuiceContextListener</listener-class>
+	</listener>
+
+
 </web-app>
