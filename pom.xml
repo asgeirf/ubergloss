@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>ubergloss</artifactId>
+	<groupId>com.unsercorp</groupId>
+	<version>1.0-SNAPSHOT</version>
+
+	<packaging>war</packaging>
+
+	<name>UberGloss Terminology Management System</name>
+
+	<developers>
+		<developer>
+			<id>asgeirf</id>
+			<name>Asgeir Frimannsson</name>
+			<email>asgeirf@gmail.com</email>
+			<url>http://asgeirf.blogspot.com/</url>
+			<organization>UnserCorp</organization>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git://github.com/asgeirf/ubergloss.git/</connection>
+		<developerConnection>cm:git:git@github.com:asgeirf/ubergloss.git/</developerConnection>
+	</scm>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<gwt.version>2.0.3</gwt.version>
+		<hibernate.version>3</hibernate.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<!-- Specify Java 1.6 as the minium requirement -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<!-- For running tomcat embedded through mvn tomcat:run -->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<configuration>
+					<path>/</path>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<warSourceDirectory>src/main/webapp</warSourceDirectory>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<!-- For generating eclipse project files with proper GWT support-->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<wtpversion>2.0</wtpversion>
+					<wtpContextName>ubergloss</wtpContextName>
+					<wtpmanifest>true</wtpmanifest>
+					<additionalBuildcommands>
+						<buildCommand>
+							<name>com.google.gdt.eclipse.core.webAppProjectValidator</name>
+						</buildCommand>
+						<buildCommand>
+							<name>com.google.gwt.eclipse.core.gwtProjectValidator</name>
+						</buildCommand>
+					</additionalBuildcommands>
+
+					<additionalProjectnatures>
+						<projectnature>com.google.gwt.eclipse.core.gwtNature</projectnature>
+						<projectnature>com.google.gdt.eclipse.core.webAppNature</projectnature>
+					</additionalProjectnatures>
+
+					<classpathContainers>
+						<classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
+						<classpathContainer>com.google.gwt.eclipse.core.GWT_CONTAINER</classpathContainer>
+					</classpathContainers>
+					<excludes>
+						<!-- These are provided by the GWT container -->
+						<exclude>com.google.gwt:gwt-servlet</exclude>
+						<exclude>com.google.gwt:gwt-user</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<!-- compile, generateAsync, test -->
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>${gwt.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${gwt.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+</project>
+
